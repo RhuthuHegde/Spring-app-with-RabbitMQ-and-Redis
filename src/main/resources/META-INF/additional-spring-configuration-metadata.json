@@ -1,0 +1,18 @@
+{
+  "properties": [
+    {
+      "name": "spring.db1.datasource.username",
+      "type": "java.lang.String",
+      "description": "Description for spring.db1.datasource.username."
+    },
+    {
+      "name": "spring.user.datasource.tomcat.max-active",
+      "type": "java.lang.String",
+      "description": "Description for spring.user.datasource.tomcat.max-active."
+    },
+    {
+      "name": "demo.rabbitmq.routingKey",
+      "type": "java.lang.String",
+      "description": "Description for demo.rabbitmq.routingKey."
+    }
+  ] }
