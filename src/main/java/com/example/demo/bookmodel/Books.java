@@ -1,10 +1,9 @@
 package com.example.demo.bookmodel;
-
-import com.example.demo.usermodel.Users;
 import lombok.*;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
@@ -13,7 +12,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "Books")
 @Component
-public class Books {
+public class Books implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO,generator = "book_generator")
     @SequenceGenerator(name="book_generator",allocationSize = 1,initialValue = 1,sequenceName = "book_sequence")

@@ -1,13 +1,10 @@
 package com.example.demo.usermodel;
 
-import com.example.demo.bookmodel.Books;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
@@ -16,7 +13,7 @@ import java.util.List;
 @Entity
 @Table(name="Users")
 @Component
-public class Users {
+public class Users implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO,generator = "user_generator")
     @SequenceGenerator(allocationSize = 1, name = "user_generator",initialValue = 1,sequenceName = "user_sequence")

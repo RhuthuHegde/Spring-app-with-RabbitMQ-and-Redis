@@ -1,14 +1,21 @@
 package com.example.demo.services.implementation;
 
+import com.example.demo.Exception.ResourceNotFoundException;
 import com.example.demo.bookmodel.Books;
 import com.example.demo.bookrepository.BookRepository;
 import com.example.demo.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
+@CacheConfig(cacheNames = "Books")
 public class BookServiceImpl implements BookService {
 
     @Autowired
@@ -16,12 +23,16 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<Books> getAllBooks() {
+        System.out.println("Getting from the DB");
         return bookRepository.findAll();
     }
 
     @Override
+    @Cacheable(key="#id")
     public Books findByBookId(Long id) {
-        return bookRepository.findBooksByBookId(id);
+        System.out.println("Getting from the DB");
+        Books book=bookRepository.findBooksByBookId(id);
+        return book;
     }
 
 
@@ -36,6 +47,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    @CachePut(key="#id")
     public Books updateBooks(Long id, Books book) {
         Books updated_book=bookRepository.findBooksByBookId(id);
 //                .orElseThrow(
@@ -47,6 +59,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    @CacheEvict(key="#id",allEntries = true)
     public void deleteBooks(Long id) {
         Books delete_book=bookRepository.findBooksByBookId(id);
 //                      .orElseThrow(
