@@ -42,9 +42,9 @@ public class BookController {
     @PostMapping("/books/add")
     public ResponseEntity<String> addBooks(@RequestBody Books book)
     {
-        Books bookAdded=bookService.saveBooks(book);
-        template.convertAndSend(MessageConfiguration.EXCHANGE,MessageConfiguration.ROUTING_KEY1,bookAdded);
-        return new ResponseEntity<>("The book is added with the id "+bookAdded.getBookId(),HttpStatus.CREATED);
+//        Books bookAdded=bookService.saveBooks(book);
+        template.convertAndSend(MessageConfiguration.EXCHANGE,MessageConfiguration.ROUTING_KEY1,book);
+        return new ResponseEntity<>("Processing book with id "+book.getBookId(),HttpStatus.CREATED);
     }
     @PutMapping("/books/update/{bookId}")
     public ResponseEntity<String> changeBooks(@PathVariable Long bookId, @RequestBody Books book)

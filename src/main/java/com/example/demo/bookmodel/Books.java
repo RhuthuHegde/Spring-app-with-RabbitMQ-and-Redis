@@ -12,7 +12,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "Books")
 @Component
-public class Books implements Serializable {
+public class Books implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO,generator = "book_generator")
     @SequenceGenerator(name="book_generator",allocationSize = 1,initialValue = 1,sequenceName = "book_sequence")

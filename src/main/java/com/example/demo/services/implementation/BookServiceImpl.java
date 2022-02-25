@@ -1,6 +1,5 @@
 package com.example.demo.services.implementation;
 
-import com.example.demo.Exception.ResourceNotFoundException;
 import com.example.demo.bookmodel.Books;
 import com.example.demo.bookrepository.BookRepository;
 import com.example.demo.services.BookService;
@@ -10,9 +9,7 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @CacheConfig(cacheNames = "Books")
@@ -50,10 +47,7 @@ public class BookServiceImpl implements BookService {
     @CachePut(key="#id")
     public Books updateBooks(Long id, Books book) {
         Books updated_book=bookRepository.findBooksByBookId(id);
-//                .orElseThrow(
-//                ()->new ResourceNotFoundException("Book id not found with id "+id));
         updated_book.setBookName(book.getBookName());
-//        updated_book.setUsers(book.getUsers());
         bookRepository.save(updated_book);
         return updated_book;
     }
@@ -62,8 +56,7 @@ public class BookServiceImpl implements BookService {
     @CacheEvict(key="#id",allEntries = true)
     public void deleteBooks(Long id) {
         Books delete_book=bookRepository.findBooksByBookId(id);
-//                      .orElseThrow(
-//                ()->new ResourceNotFoundException("Book id not found with id "+id));
+        if(delete_book!=null)
         bookRepository.delete(delete_book);
     }
 }
